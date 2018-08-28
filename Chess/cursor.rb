@@ -76,8 +76,27 @@ class Cursor
   end
 
   def handle_key(key)
+    case key
+    when :return || :space
+      @cursor_pos
+    when :left
+      update_pos(MOVES[:left])          #  [3,3]        [0,-1]
+    when :right
+      update_pos(MOVES[:right])
+    when :up
+      update_pos(MOVES[:up])
+    when :down
+      update_pos(MOVES[:down])
+    when :ctrl_c
+      exit(o)
+    end
   end
 
   def update_pos(diff)
+    # byebug
+    @cursor_pos.each.with_index do |el, i|
+      @cursor_pos[i] += diff[i]
+    end
+    @cursor_pos
   end
 end

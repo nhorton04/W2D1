@@ -1,0 +1,13 @@
+module SlidingPiece
+  def moves
+    move_dir
+  end
+
+  def move_dir; end
+end
+
+module SteppingPiece
+  def moves
+
+  end
+end
