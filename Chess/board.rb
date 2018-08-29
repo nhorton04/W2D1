@@ -23,18 +23,50 @@ class Board
   def populate_board
     2.times do |row|
       (0..7).each do |col|
-        self[[row, col]] = Piece.new
+        if row == 1
+          self[[row, col]] = Pawn.new(:black,self,[row,col])
+        else
+          if col == 0 || col == 7
+            self[[row,col]] = Rook.new(:black,self,[row,col])
+          elsif col == 1 || col == 6
+            self[[row,col]] = Knight.new(:black,self,[row,col])
+          elsif col == 2 || col == 5
+            self[[row,col]] = Bishop.new(:black,self,[row,col])
+          elsif col == 3
+            self[[row,col]] = Queen.new(:black,self,[row,col])
+          else
+            self[[row,col]] = King.new(:black,self,[row,col])
+          end
+        end
       end
     end
 
+    self[[3,4]] = Rook.new(:black,self,[3,4])
+
     (6..7).each do |row|
       (0..7).each do |col|
-        self[[row, col]] = Piece.new
+        if row == 6
+          self[[row,col]] = Pawn.new(:white,self,[row,col])
+        else
+          if col == 0 || col == 7
+            self[[row,col]] = Rook.new(:white,self,[row,col])
+          elsif col == 1 || col == 6
+            self[[row,col]] = Knight.new(:white,self,[row,col])
+          elsif col == 2 || col == 5
+            self[[row,col]] = Bishop.new(:white,self,[row,col])
+          elsif col == 3
+            self[[row,col]] = Queen.new(:white,self,[row,col])
+          else
+            self[[row,col]] = King.new(:white,self,[row,col])
+          end
+        end
       end
     end
   end
 
-
+  def show_valid_moves(pos)
+    self[pos].moves
+  end
 
   def [](pos)
     row, col = pos
@@ -50,6 +82,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   board = Board.new
+  p board.show_valid_moves([3,4])
   dis = Display.new(board)
-  dis.render
+  #dis.render
 end

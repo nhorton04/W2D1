@@ -19,9 +19,19 @@ class Display
         # where cursor is, should do something different
         (0..7).each do |col|
           if @cursor.cursor_pos == [row,col]
-            print " #{@board[[row,col]].inspect} ".colorize(:background => :red)
+            print " #{@board[[row,col]].symbol} ".colorize(:background => :red)
+          elsif row.even?
+            if col.even?
+              print " #{@board[[row,col]].symbol} ".colorize(:background => :yellow)
+            else
+              print " #{@board[[row,col]].symbol} ".colorize(:background => :green)
+            end
           else
-            print " #{@board[[row,col]].inspect} ".colorize(:background => :yellow)
+            if col.odd?
+              print " #{@board[[row,col]].symbol} ".colorize(:background => :yellow)
+            else
+              print " #{@board[[row,col]].symbol} ".colorize(:background => :green)
+            end
           end
         end
         puts
